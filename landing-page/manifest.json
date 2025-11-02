@@ -1,0 +1,23 @@
+{
+  "short_name": "شاهين",
+  "name": "شاهين للحوكمة | Shahin GRC",
+  "name_ar": "شاهين للحوكمة",
+  "name_en": "Shahin GRC",
+  "tagline_ar": "الحوكمة الاستثنائية، من المملكة إلى العالم",
+  "tagline_en": "Exceptional Governance, From the Kingdom to the World",
+  "icons": [
+    { "src": "/favicon.ico", "sizes": "64x64 32x32 24x24 16x16", "type": "image/x-icon" },
+    { "src": "/logo-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/logo-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1e40af",
+  "background_color": "#ffffff",
+  "orientation": "any",
+  "lang": "ar",
+  "dir": "rtl",
+  "description": "منصة الحوكمة والمخاطر والامتثال الأولى في المملكة العربية السعودية",
+  "categories": ["business", "productivity", "compliance"]
+}
+
