@@ -1,0 +1,56 @@
+# Dependencies
+node_modules
+npm-debug.log
+package-lock.json
+
+# Build outputs
+dist
+build
+*.local
+
+# Development files
+.env.local
+.env.development
+.env.test
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+!README.md
+
+# Test files
+coverage
+.nyc_output
+*.test.js
+*.test.jsx
+*.spec.js
+*.spec.jsx
+
+# Config files not needed in production
+.eslintrc
+.prettierrc
+.editorconfig
+
+# Deployment scripts
+DEPLOY_*.ps1
+*.ps1
+
+# Temporary files
+tmp
+temp
+*.log
+

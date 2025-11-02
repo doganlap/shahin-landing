@@ -131,10 +131,10 @@ const KeyFeatures = () => {
             الميزات الرئيسية
           </div>
           <h2 className="font-arabic font-bold text-4xl lg:text-6xl text-gray-900 mb-4">
-            لماذا تختار شاهين؟
+            الميزات الرئيسية
           </h2>
           <h3 className="font-english font-semibold text-2xl lg:text-3xl text-gray-700 mb-6">
-            Why Choose Shahin?
+            Key Features
           </h3>
           <p className="font-arabic text-lg text-gray-600 max-w-3xl mx-auto">
             منصة شاملة تجمع بين القوة والسهولة لتحقيق الحوكمة والامتثال المثالي

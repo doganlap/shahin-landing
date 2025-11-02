@@ -10,7 +10,29 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    assetsDir: 'assets'
+    assetsDir: 'assets',
+    sourcemap: false, // Disable sourcemaps in production for smaller builds
+    minify: 'esbuild', // Use esbuild for faster minification
+    cssMinify: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          animations: ['framer-motion'],
+          icons: ['lucide-react']
+        },
+        // Optimize chunk naming for better caching
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
+      }
+    },
+    // Increase chunk size warning limit
+    chunkSizeWarningLimit: 1000
+  },
+  // Optimize dependencies
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'framer-motion', 'lucide-react']
   }
 })
 

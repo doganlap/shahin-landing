@@ -5,22 +5,15 @@ import QuickSectionNav from './components/QuickSectionNav'
 import Hero from './components/Hero'
 import TrustBar from './components/TrustBar'
 import Vision from './components/Vision'
-import ProblemSolution from './components/ProblemSolution'
-import KeyFeatures from './components/KeyFeatures'
 import Interactive3DCards from './components/Interactive3DCards'
 import AITeamShowcase from './components/AITeamShowcase'
-import UnifiedValueSection from './components/UnifiedValueSection'
 import CompetitiveAdvantage from './components/CompetitiveAdvantage'
-import SaudiFrameworks from './components/SaudiFrameworks'
 import TargetSectors from './components/TargetSectors'
 import DashboardPreview from './components/DashboardPreview'
 import TransformationStory from './components/TransformationStory'
-import Testimonials from './components/Testimonials'
 import ParallaxSection from './components/ParallaxSection'
 import Pricing from './components/Pricing'
 import FAQ from './components/FAQ'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
 
 function App() {
   return (
@@ -32,23 +25,33 @@ function App() {
         <Hero />
         <TrustBar />
         <Vision />
-        <ProblemSolution />
-        <KeyFeatures />
         <Interactive3DCards />
         <AITeamShowcase />
-        <UnifiedValueSection />
         <CompetitiveAdvantage />
-        <SaudiFrameworks />
         <TargetSectors />
         <DashboardPreview />
         <TransformationStory />
-        <Testimonials />
         <ParallaxSection />
         <Pricing />
         <FAQ />
-        <Contact />
       </main>
-      <Footer />
+      <footer className="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-6">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="font-english text-sm text-gray-600 dark:text-gray-400">
+              Powered by{' '}
+              <a
+                href="https://www.doganconsult.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-brand-primary hover:text-brand-accent transition-colors underline"
+              >
+                DoganConsult
+              </a>
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }

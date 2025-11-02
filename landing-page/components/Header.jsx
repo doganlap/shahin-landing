@@ -18,23 +18,16 @@ const Header = () => {
     { id: 'hero', label: 'الرئيسية', labelEn: 'Home' },
     { id: 'trust', label: 'الثقة', labelEn: 'Trust' },
     { id: 'vision', label: 'الرؤية', labelEn: 'Vision' },
-    { id: 'problem-solution', label: 'المشكلة والحل', labelEn: 'Problem & Solution' },
-    { id: 'features', label: 'الميزات', labelEn: 'Features' },
     { id: 'interactive-3d-cards', label: 'البطاقات التفاعلية', labelEn: '3D Cards' },
     { id: 'ai-team', label: 'فريق الذكاء الاصطناعي', labelEn: 'AI Team' },
-    { id: 'unified-value', label: 'القيمة الموحدة', labelEn: 'Value' },
-    { id: 'frameworks', label: 'الأطر', labelEn: 'Frameworks' },
     { id: 'competitive-advantage', label: 'الميزة التنافسية', labelEn: 'Advantage' },
     { id: 'target-sectors', label: 'القطاعات المستهدفة', labelEn: 'Sectors' },
     { id: 'dashboard', label: 'لوحة المعلومات', labelEn: 'Dashboard' },
     { id: 'transformation', label: 'التحول', labelEn: 'Transformation' },
     { id: 'platform-demo', label: 'عرض المنصة', labelEn: 'Demo' },
-    { id: 'testimonials', label: 'الشهادات', labelEn: 'Testimonials' },
     { id: 'parallax', label: 'الخلفية المتحركة', labelEn: 'Parallax' },
     { id: 'pricing', label: 'الأسعار', labelEn: 'Pricing' },
     { id: 'faq', label: 'الأسئلة الشائعة', labelEn: 'FAQ' },
-    { id: 'final-cta', label: 'الدعوة للعمل', labelEn: 'CTA' },
-    { id: 'contact', label: 'اتصل بنا', labelEn: 'Contact' },
   ]
 
   // Advanced navigation hooks

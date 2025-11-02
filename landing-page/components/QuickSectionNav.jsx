@@ -8,23 +8,16 @@ const QuickSectionNav = () => {
     'hero',
     'trust',
     'vision',
-    'problem-solution',
-    'features',
     'interactive-3d-cards',
     'ai-team',
-    'unified-value',
-    'frameworks',
     'competitive-advantage',
     'target-sectors',
     'dashboard',
     'transformation',
     'platform-demo',
-    'testimonials',
     'parallax',
     'pricing',
-    'faq',
-    'final-cta',
-    'contact'
+    'faq'
   ]
 
   const activeSection = useScrollSpy(sections, 150)
@@ -187,23 +180,16 @@ const getSectionNameArabic = (sectionId) => {
     'hero': 'الرئيسية',
     'trust': 'الثقة',
     'vision': 'الرؤية',
-    'problem-solution': 'المشكلة والحل',
-    'features': 'الميزات',
     'interactive-3d-cards': 'البطاقات التفاعلية',
     'ai-team': 'فريق الذكاء الاصطناعي',
-    'unified-value': 'القيمة الموحدة',
-    'frameworks': 'الأطر',
     'competitive-advantage': 'الميزة التنافسية',
     'target-sectors': 'القطاعات المستهدفة',
     'dashboard': 'لوحة المعلومات',
     'transformation': 'التحول',
     'platform-demo': 'عرض المنصة',
-    'testimonials': 'الشهادات',
     'parallax': 'الخلفية المتحركة',
     'pricing': 'الأسعار',
     'faq': 'الأسئلة الشائعة',
-    'final-cta': 'الدعوة للعمل',
-    'contact': 'اتصل بنا'
   }
   return names[sectionId] || sectionId
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react'
+import { Send, CheckCircle, AlertCircle } from 'lucide-react'
 import { sendContactMessage } from '../services/sandboxService'
 
 const Contact = () => {
@@ -35,31 +35,6 @@ const Contact = () => {
     }
   }
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: 'البريد الإلكتروني',
-      labelEn: 'Email',
-      value: 'info@shahingrc.sa',
-      link: 'mailto:info@shahingrc.sa'
-    },
-    {
-      icon: Phone,
-      label: 'الهاتف',
-      labelEn: 'Phone',
-      value: '+966 11 XXX XXXX',
-      link: 'tel:+96611XXXXXXXX'
-    },
-    {
-      icon: MapPin,
-      label: 'العنوان',
-      labelEn: 'Address',
-      value: 'الرياض، المملكة العربية السعودية',
-      valueEn: 'Riyadh, Saudi Arabia',
-      link: null
-    }
-  ]
-
   return (
     <section id="contact" className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,88 +59,11 @@ const Contact = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-8"
-          >
-            <div>
-              <h3 className="font-arabic font-bold text-2xl text-gray-900 mb-2">
-                معلومات الاتصال
-              </h3>
-              <h4 className="font-english font-semibold text-xl text-gray-700 mb-6">
-                Contact Information
-              </h4>
-            </div>
-
-            <div className="space-y-6">
-              {contactInfo.map((info, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex items-start gap-4 p-6 bg-white rounded-xl border-2 border-gray-200 hover:border-brand-accent/50 transition-all"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center flex-shrink-0">
-                    <info.icon className="w-6 h-6 text-white" strokeWidth={2} />
-                  </div>
-                  <div>
-                    <div className="font-arabic font-bold text-gray-900 mb-1">
-                      {info.label}
-                    </div>
-                    <div className="font-english text-xs text-gray-500 mb-2">
-                      {info.labelEn}
-                    </div>
-                    {info.link ? (
-                      <a 
-                        href={info.link} 
-                        className="font-arabic text-brand-primary hover:text-brand-accent transition-colors"
-                      >
-                        {info.value}
-                      </a>
-                    ) : (
-                      <div>
-                        <div className="font-arabic text-gray-700">{info.value}</div>
-                        {info.valueEn && (
-                          <div className="font-english text-sm text-gray-500">{info.valueEn}</div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Business Hours */}
-            <div className="bg-gradient-to-br from-brand-accent/10 to-brand-gold/10 rounded-2xl p-6 border-2 border-brand-accent/20">
-              <h4 className="font-arabic font-bold text-lg text-gray-900 mb-2">
-                ساعات العمل
-              </h4>
-              <h5 className="font-english font-semibold text-sm text-gray-700 mb-4">
-                Business Hours
-              </h5>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="font-arabic text-gray-700">الأحد - الخميس:</span>
-                  <span className="font-english font-semibold text-gray-900">8:00 AM - 5:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="font-arabic text-gray-700">الجمعة - السبت:</span>
-                  <span className="font-english font-semibold text-gray-900">Closed</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
+        <div className="max-w-2xl mx-auto">
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-xl"
           >

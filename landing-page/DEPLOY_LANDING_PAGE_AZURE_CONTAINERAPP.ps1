@@ -23,9 +23,18 @@ Write-Host ""
 
 # Step 1: Build Production Docker Image
 Write-Host "Step 1: Building Production Docker Image..." -ForegroundColor Yellow
-Set-Location "D:\www.shahin.com\landing-page"
 
-docker build -t grc-landing-page:$ImageTag .
+# Get script directory (works from anywhere)
+$scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Path
+if (-not $scriptPath) {
+    $scriptPath = $PSScriptRoot
+}
+Set-Location $scriptPath
+
+Write-Host "  Working directory: $scriptPath" -ForegroundColor Gray
+Write-Host "  Using optimized Dockerfile for production..." -ForegroundColor Gray
+
+docker build -t grc-landing-page:$ImageTag -f Dockerfile .
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host "❌ Docker build failed!" -ForegroundColor Red

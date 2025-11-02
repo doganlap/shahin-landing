@@ -8,10 +8,19 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install ALL dependencies (needed for build)
-RUN npm ci
+# Use npm install if package-lock.json is excluded, otherwise npm ci is faster
+RUN npm install --prefer-offline --no-audit
 
 # Copy source code
 COPY . .
+
+# Set build-time environment variables (use ARG with defaults)
+ARG VITE_API_URL=https://grc-backend-prod.delightfulwave-81a84bdf.eastus.azurecontainerapps.io/api
+ARG VITE_FRONTEND_URL=https://grc-frontend-prod.delightfulwave-81a84bdf.eastus.azurecontainerapps.io
+
+# Set environment variables for build
+ENV VITE_API_URL=${VITE_API_URL}
+ENV VITE_FRONTEND_URL=${VITE_FRONTEND_URL}
 
 # Build for production
 RUN npm run build
@@ -28,9 +37,9 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Copy public assets
 COPY --from=builder /app/public /usr/share/nginx/html
 
-# Add healthcheck
+# Add healthcheck (nginx:alpine has wget pre-installed)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:80/ || exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost/health || exit 1
 
 # Expose port
 EXPOSE 80
