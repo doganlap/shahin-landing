@@ -20,6 +20,10 @@ const DemoBooking = ({ isOpen, onClose, type = 'demo' }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState({})
   const [submitError, setSubmitError] = useState(null)
+  const [availableSlots, setAvailableSlots] = useState([])
+  const [bookedSlots, setBookedSlots] = useState([])
+  const [loadingAvailability, setLoadingAvailability] = useState(false)
+  const [availabilityInfo, setAvailabilityInfo] = useState(null)
 
   const companySizes = [
     { value: 'small', label: 'Small (1-50)', labelAr: 'صغير (1-50)' },
@@ -38,10 +42,41 @@ const DemoBooking = ({ isOpen, onClose, type = 'demo' }) => {
     { value: 'other', label: 'Other', labelAr: 'أخرى' }
   ]
 
-  const timeSlots = [
+  const allTimeSlots = [
     '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
     '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM'
   ]
+
+  // Fetch availability when date changes
+  React.useEffect(() => {
+    const fetchAvailability = async () => {
+      if (formData.preferredDate && step === 3) {
+        setLoadingAvailability(true)
+        try {
+          const { getAvailableTimeSlots } = await import('../services/bookingService')
+          const availability = await getAvailableTimeSlots(formData.preferredDate, type)
+          
+          setAvailableSlots(availability.availableSlots || [])
+          setBookedSlots(availability.bookedSlots || [])
+          setAvailabilityInfo(availability)
+          
+          // Clear selected time if it's no longer available
+          if (formData.preferredTime && !availability.availableSlots.includes(formData.preferredTime)) {
+            setFormData(prev => ({ ...prev, preferredTime: '' }))
+          }
+        } catch (error) {
+          console.error('Error fetching availability:', error)
+          // Fallback to all slots
+          setAvailableSlots(allTimeSlots)
+          setBookedSlots([])
+        } finally {
+          setLoadingAvailability(false)
+        }
+      }
+    }
+    
+    fetchAvailability()
+  }, [formData.preferredDate, step, type])
 
   const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -152,7 +187,22 @@ const DemoBooking = ({ isOpen, onClose, type = 'demo' }) => {
       
     } catch (error) {
       console.error('Booking submission error:', error)
-      setSubmitError('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى أو الاتصال بنا مباشرة.')
+      
+      // Handle booking conflict specifically
+      if (error.message && error.message.includes('already booked')) {
+        setSubmitError('هذا الوقت محجوز بالفعل. يرجى اختيار وقت آخر.')
+        // Refresh availability
+        if (formData.preferredDate) {
+          const { getAvailableTimeSlots } = await import('../services/bookingService')
+          const availability = await getAvailableTimeSlots(formData.preferredDate, type)
+          setAvailableSlots(availability.availableSlots || [])
+          setBookedSlots(availability.bookedSlots || [])
+          setFormData(prev => ({ ...prev, preferredTime: '' }))
+        }
+      } else {
+        setSubmitError('حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى أو الاتصال بنا مباشرة.')
+      }
+      
       setIsSubmitting(false)
     }
   }
@@ -418,23 +468,65 @@ const DemoBooking = ({ isOpen, onClose, type = 'demo' }) => {
                           <Clock className="w-4 h-4" />
                           <span className="font-english">Preferred Time</span>
                           <span className="font-arabic text-gray-500">الوقت المفضل</span>
+                          {loadingAvailability && (
+                            <Loader2 className="w-4 h-4 animate-spin text-brand-primary" />
+                          )}
                         </label>
+                        
+                        {availabilityInfo && (
+                          <div className="mb-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                            <p className="text-xs font-arabic text-blue-700">
+                              {availabilityInfo.availableCount > 0 
+                                ? `${availabilityInfo.availableCount} من ${availabilityInfo.totalSlots} مواعيد متاحة`
+                                : 'جميع المواعيد محجوزة لهذا اليوم'}
+                            </p>
+                            <p className="text-xs font-english text-blue-600 mt-1">
+                              {availabilityInfo.availableCount > 0
+                                ? `${availabilityInfo.availableCount} of ${availabilityInfo.totalSlots} slots available`
+                                : 'All slots booked for this date'}
+                            </p>
+                          </div>
+                        )}
+                        
                         <div className="grid grid-cols-4 gap-2">
-                          {timeSlots.map((time) => (
-                            <button
-                              key={time}
-                              type="button"
-                              onClick={() => handleChange('preferredTime', time)}
-                              className={`px-3 py-2 rounded-lg border-2 transition-all text-sm ${
-                                formData.preferredTime === time
-                                  ? 'border-brand-primary bg-brand-primary/5 text-brand-primary font-semibold'
-                                  : 'border-gray-300 hover:border-brand-primary/50'
-                              }`}
-                            >
-                              {time}
-                            </button>
-                          ))}
+                          {allTimeSlots.map((time) => {
+                            const isAvailable = availableSlots.includes(time)
+                            const isBooked = bookedSlots.includes(time)
+                            const isSelected = formData.preferredTime === time
+                            
+                            return (
+                              <button
+                                key={time}
+                                type="button"
+                                onClick={() => {
+                                  if (isAvailable) {
+                                    handleChange('preferredTime', time)
+                                  }
+                                }}
+                                disabled={!isAvailable || loadingAvailability}
+                                className={`px-3 py-2 rounded-lg border-2 transition-all text-sm relative ${
+                                  !isAvailable || loadingAvailability
+                                    ? 'border-gray-200 bg-gray-50 text-gray-400 cursor-not-allowed opacity-50'
+                                    : isSelected
+                                    ? 'border-brand-primary bg-brand-primary/5 text-brand-primary font-semibold'
+                                    : 'border-gray-300 hover:border-brand-primary/50 hover:bg-brand-primary/5'
+                                }`}
+                                title={isBooked ? 'هذا الوقت محجوز' : isAvailable ? 'متاح' : 'غير متاح'}
+                              >
+                                {time}
+                                {isBooked && (
+                                  <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                                )}
+                              </button>
+                            )
+                          })}
                         </div>
+                        
+                        {availableSlots.length === 0 && formData.preferredDate && (
+                          <p className="mt-2 text-sm text-red-600 font-arabic">
+                            ⚠️ جميع المواعيد محجوزة. يرجى اختيار تاريخ آخر.
+                          </p>
+                        )}
                       </div>
 
                       <div>

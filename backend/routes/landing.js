@@ -46,24 +46,192 @@ router.get('/content', async (req, res) => {
   }
 });
 
-// POST visitor request (public)
-router.post('/requests', async (req, res) => {
+// GET available time slots for a date
+router.get('/availability', async (req, res) => {
   try {
-    const { name, company, email, phone, date, type, package: pkg, features } = req.body;
-    const result = await pool.query(
-      `INSERT INTO landing_requests (name, company, email, phone, preferred_date, access_type, package, features, status, created_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'pending', NOW())
-       RETURNING *`,
-      [name, company, email, phone, date, type, pkg, JSON.stringify(features)]
+    const { date, type = 'demo' } = req.query;
+    
+    if (!date) {
+      return res.status(400).json({ error: 'Date parameter is required' });
+    }
+    
+    // All available slots
+    const allSlots = [
+      '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+      '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM'
+    ];
+    
+    // Get booked slots for this date and type
+    const bookedResult = await pool.query(
+      `SELECT preferred_time, status 
+       FROM landing_requests 
+       WHERE preferred_date = $1 
+       AND access_type = $2 
+       AND status IN ('pending', 'approved')
+       AND preferred_time IS NOT NULL`,
+      [date, type]
     );
     
-    // Emit event for admins
-    global.io?.emit('landing:new-request', result.rows[0]);
+    const bookedSlots = bookedResult.rows.map(row => row.preferred_time);
     
-    res.json({ success: true, request: result.rows[0] });
+    // Filter out booked slots
+    const availableSlots = allSlots.filter(slot => !bookedSlots.includes(slot));
+    
+    res.json({
+      date,
+      type,
+      availableSlots,
+      bookedSlots,
+      totalSlots: allSlots.length,
+      availableCount: availableSlots.length
+    });
   } catch (error) {
+    console.error('Error fetching availability:', error);
+    res.status(500).json({ error: 'Failed to fetch availability' });
+  }
+});
+
+// GET available dates in a range (next 30 days)
+router.get('/available-dates', async (req, res) => {
+  try {
+    const { type = 'demo', startDate } = req.query;
+    const start = startDate || new Date().toISOString().split('T')[0];
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + 30);
+    const end = endDate.toISOString().split('T')[0];
+    
+    // Get all booked slots in date range
+    const bookedResult = await pool.query(
+      `SELECT preferred_date, preferred_time 
+       FROM landing_requests 
+       WHERE preferred_date BETWEEN $1 AND $2 
+       AND access_type = $3 
+       AND status IN ('pending', 'approved')
+       AND preferred_time IS NOT NULL`,
+      [start, end, type]
+    );
+    
+    // Group by date
+    const bookedByDate = {};
+    bookedResult.rows.forEach(row => {
+      if (!bookedByDate[row.preferred_date]) {
+        bookedByDate[row.preferred_date] = [];
+      }
+      bookedByDate[row.preferred_date].push(row.preferred_time);
+    });
+    
+    // Generate available dates
+    const allSlots = [
+      '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
+      '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM'
+    ];
+    
+    const availableDates = [];
+    const currentDate = new Date(start);
+    const endDateObj = new Date(end);
+    
+    while (currentDate <= endDateObj) {
+      const dateStr = currentDate.toISOString().split('T')[0];
+      const dayOfWeek = currentDate.getDay(); // 0 = Sunday, 6 = Saturday
+      
+      // Only include Sunday-Thursday (0-4) for Saudi business days
+      if (dayOfWeek >= 0 && dayOfWeek <= 4) {
+        const bookedSlots = bookedByDate[dateStr] || [];
+        const availableCount = allSlots.length - bookedSlots.length;
+        
+        availableDates.push({
+          date: dateStr,
+          availableSlots: availableCount,
+          fullyBooked: availableCount === 0,
+          partiallyBooked: availableCount > 0 && availableCount < allSlots.length
+        });
+      }
+      
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    
+    res.json({
+      startDate: start,
+      endDate: end,
+      type,
+      availableDates
+    });
+  } catch (error) {
+    console.error('Error fetching available dates:', error);
+    res.status(500).json({ error: 'Failed to fetch available dates' });
+  }
+});
+
+// POST visitor request (public) - Now with booking reservation
+router.post('/requests', async (req, res) => {
+  const client = await pool.connect();
+  
+  try {
+    await client.query('BEGIN');
+    
+    const { 
+      name, company, email, phone, date, time, type, 
+      package: pkg, features, message, lead_score 
+    } = req.body;
+    
+    // Check if the time slot is still available
+    if (date && time) {
+      const availabilityCheck = await client.query(
+        `SELECT COUNT(*) as count 
+         FROM landing_requests 
+         WHERE preferred_date = $1 
+         AND preferred_time = $2 
+         AND access_type = $3 
+         AND status IN ('pending', 'approved')`,
+        [date, time, type]
+      );
+      
+      if (parseInt(availabilityCheck.rows[0].count) > 0) {
+        await client.query('ROLLBACK');
+        return res.status(409).json({ 
+          error: 'This time slot is already booked. Please select another time.',
+          code: 'SLOT_BOOKED'
+        });
+      }
+    }
+    
+    // Insert booking request
+    const result = await client.query(
+      `INSERT INTO landing_requests 
+       (name, company, email, phone, preferred_date, preferred_time, access_type, 
+        package, features, message, lead_score, status, created_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, 'pending', NOW())
+       RETURNING *`,
+      [
+        name, company, email, phone, date, time, type, 
+        pkg, JSON.stringify(features), message || '', lead_score || 0
+      ]
+    );
+    
+    await client.query('COMMIT');
+    
+    const booking = result.rows[0];
+    
+    // Emit event for admins
+    global.io?.emit('landing:new-request', booking);
+    
+    res.json({ 
+      success: true, 
+      bookingId: booking.id,
+      request: booking,
+      message: 'Booking request submitted successfully'
+    });
+  } catch (error) {
+    await client.query('ROLLBACK');
     console.error('Error creating landing request:', error);
-    res.status(500).json({ error: 'Failed to create request' });
+    
+    if (error.code === '23505') { // Unique constraint violation
+      res.status(409).json({ error: 'Duplicate booking detected' });
+    } else {
+      res.status(500).json({ error: 'Failed to create request' });
+    }
+  } finally {
+    client.release();
   }
 });
 

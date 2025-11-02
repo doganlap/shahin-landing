@@ -20,22 +20,31 @@ CREATE TABLE IF NOT EXISTS landing_requests (
   email VARCHAR(255) NOT NULL,
   phone VARCHAR(50),
   preferred_date DATE,
+  preferred_time VARCHAR(20),
   access_type VARCHAR(20) NOT NULL CHECK (access_type IN ('demo', 'poc')),
   package VARCHAR(100),
   features JSONB,
-  status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),
+  message TEXT,
+  lead_score INTEGER DEFAULT 0,
+  status VARCHAR(20) DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected', 'confirmed', 'cancelled')),
   approval_token TEXT,
   approved_at TIMESTAMP,
   rejected_at TIMESTAMP,
   rejection_reason TEXT,
+  confirmed_at TIMESTAMP,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  -- Prevent double booking for same date/time/type
+  CONSTRAINT unique_booking UNIQUE (preferred_date, preferred_time, access_type, status) 
+    WHERE status IN ('pending', 'approved', 'confirmed')
 );
 
 -- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_landing_content_active ON landing_content(active, updated_at DESC);
 CREATE INDEX IF NOT EXISTS idx_landing_requests_status ON landing_requests(status, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_landing_requests_email ON landing_requests(email);
+CREATE INDEX IF NOT EXISTS idx_landing_requests_date_time ON landing_requests(preferred_date, preferred_time, access_type);
+CREATE INDEX IF NOT EXISTS idx_landing_requests_date ON landing_requests(preferred_date, access_type, status);
 
 -- Insert default content
 INSERT INTO landing_content (hero_title, hero_subtitle, active, updated_at)

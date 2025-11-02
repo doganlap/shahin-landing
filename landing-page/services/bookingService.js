@@ -241,13 +241,15 @@ export const formatDate = (dateString) => {
 /**
  * Get available time slots (exclude booked slots)
  * @param {string} date - Selected date
- * @returns {Promise<Array>} Available time slots
+ * @param {string} type - Booking type ('demo' or 'poc')
+ * @returns {Promise<Object>} Availability data with available and booked slots
  */
-export const getAvailableTimeSlots = async (date) => {
+export const getAvailableTimeSlots = async (date, type = 'demo') => {
   try {
-    const response = await fetch(`${API_BASE_URL}/availability?date=${date}`, {
+    const response = await fetch(`${API_BASE_URL}/landing/availability?date=${date}&type=${type}`, {
       headers: {
-        'x-api-key': 'dummy-key'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       }
     })
     
@@ -256,14 +258,53 @@ export const getAvailableTimeSlots = async (date) => {
     }
     
     const data = await response.json()
-    return data.availableSlots || []
+    return {
+      availableSlots: data.availableSlots || [],
+      bookedSlots: data.bookedSlots || [],
+      totalSlots: data.totalSlots || 8,
+      availableCount: data.availableCount || 0
+    }
   } catch (error) {
     console.error('Availability check error:', error)
     // Return all slots if API fails
-    return [
+    const allSlots = [
       '09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM',
       '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM'
     ]
+    return {
+      availableSlots: allSlots,
+      bookedSlots: [],
+      totalSlots: allSlots.length,
+      availableCount: allSlots.length
+    }
+  }
+}
+
+/**
+ * Get available dates in a range
+ * @param {string} type - Booking type ('demo' or 'poc')
+ * @param {string} startDate - Start date (optional, defaults to today)
+ * @returns {Promise<Array>} Available dates with availability info
+ */
+export const getAvailableDates = async (type = 'demo', startDate = null) => {
+  try {
+    const url = `${API_BASE_URL}/landing/available-dates?type=${type}${startDate ? `&startDate=${startDate}` : ''}`
+    const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch available dates')
+    }
+    
+    const data = await response.json()
+    return data.availableDates || []
+  } catch (error) {
+    console.error('Available dates check error:', error)
+    return []
   }
 }
 
@@ -315,6 +356,7 @@ export default {
   validatePhone,
   formatDate,
   getAvailableTimeSlots,
+  getAvailableDates,
   sendConfirmationEmail,
   isBookingWindowOpen
 }
