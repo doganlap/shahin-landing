@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight, Play, CheckCircle, FileText, Upload, BarChart3, Shield, Zap, Cpu } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Play, CheckCircle, FileText, Upload, BarChart3, Shield, Zap, Cpu, BookOpen, AlertTriangle, Users, Settings, Monitor } from 'lucide-react'
 
 const PlatformDemo = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -67,6 +67,66 @@ const PlatformDemo = () => {
       ],
       color: 'from-amber-500 to-amber-700'
     },
+    { 
+      id: 5,
+      title: 'Risk Management', 
+      ar: 'إدارة المخاطر',
+      icon: AlertTriangle,
+      description: 'Identify and manage compliance risks',
+      descriptionAr: 'تحديد وإدارة مخاطر الامتثال',
+      steps: [
+        { step: 1, ar: 'تحليل التقييم', en: 'Analyze Assessment', action: 'Risk Detection' },
+        { step: 2, ar: 'تصنيف المخاطر', en: 'Categorize Risks', action: 'High/Medium/Low' },
+        { step: 3, ar: 'وضع خطة العلاج', en: 'Create Mitigation', action: 'Action Items' },
+        { step: 4, ar: 'مراقبة مستمرة', en: 'Monitor Progress', action: 'Real-time Tracking' }
+      ],
+      color: 'from-red-500 to-orange-700'
+    },
+    { 
+      id: 6,
+      title: 'Frameworks Library', 
+      ar: 'مكتبة الأطر',
+      icon: BookOpen,
+      description: 'Access comprehensive compliance frameworks',
+      descriptionAr: 'الوصول إلى أطر الامتثال الشاملة',
+      steps: [
+        { step: 1, ar: 'تصفح المكتبة', en: 'Browse Library', action: 'NCA, SAMA, PDPL' },
+        { step: 2, ar: 'اختر الإطار', en: 'Select Framework', action: '114 Controls' },
+        { step: 3, ar: 'استيراد تلقائي', en: 'Auto-Import', action: 'Pre-built Templates' },
+        { step: 4, ar: 'تخصيص حسب الحاجة', en: 'Customize', action: 'Tailored Setup' }
+      ],
+      color: 'from-indigo-500 to-purple-700'
+    },
+    { 
+      id: 7,
+      title: 'Team Collaboration', 
+      ar: 'التعاون مع الفريق',
+      icon: Users,
+      description: 'Work together seamlessly on assessments',
+      descriptionAr: 'العمل معاً بسلاسة على التقييمات',
+      steps: [
+        { step: 1, ar: 'إضافة أعضاء', en: 'Add Members', action: 'Assign Roles' },
+        { step: 2, ar: 'توزيع المهام', en: 'Distribute Tasks', action: 'Auto-Assignment' },
+        { step: 3, ar: 'تتبع التقدم', en: 'Track Progress', action: 'Real-time Updates' },
+        { step: 4, ar: 'مراجعة مشتركة', en: 'Collaborative Review', action: 'Team Approval' }
+      ],
+      color: 'from-cyan-500 to-blue-700'
+    },
+    { 
+      id: 8,
+      title: 'Dashboard & Monitoring', 
+      ar: 'لوحة التحكم والمراقبة',
+      icon: Monitor,
+      description: 'Real-time insights and analytics',
+      descriptionAr: 'رؤى وتحليلات في الوقت الفعلي',
+      steps: [
+        { step: 1, ar: 'مراقبة شاملة', en: 'Full Visibility', action: 'KPIs & Metrics' },
+        { step: 2, ar: 'تنبيهات فورية', en: 'Instant Alerts', action: 'Auto Notifications' },
+        { step: 3, ar: 'تقارير تلقائية', en: 'Auto Reports', action: 'Scheduled Updates' },
+        { step: 4, ar: 'تحليلات متقدمة', en: 'Advanced Analytics', action: 'AI Insights' }
+      ],
+      color: 'from-teal-500 to-green-700'
+    },
   ]
 
   const nextSlide = () => {
@@ -115,10 +175,10 @@ const PlatformDemo = () => {
             See Shahin GRC in Action
           </h3>
           <p className="font-arabic text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            بعد أن رأيت كيف يتحول الفوضى إلى نظام - شاهد كيف تعمل المنصة فعلياً في 4 خطوات عملية
+            بعد أن رأيت كيف يتحول الفوضى إلى نظام - شاهد كيف تعمل المنصة فعلياً في 8 صفحات تفاعلية
           </p>
           <p className="font-english text-sm text-gray-500 mt-2">
-            After seeing the transformation - See how the platform actually works in 4 practical steps
+            After seeing the transformation - See how the platform actually works in 8 interactive pages
           </p>
         </motion.div>
 
@@ -245,10 +305,10 @@ const PlatformDemo = () => {
           {/* Full Cycle Summary */}
           <div className="mt-8 text-center">
             <p className="font-arabic text-gray-700 mb-2">
-              <strong className="text-brand-primary">4 خطوات رئيسية</strong> تمثل دورة الامتثال الكاملة من الإنشاء إلى التقرير
+              <strong className="text-brand-primary">8 صفحات رئيسية</strong> تمثل النظام الكامل للحوكمة والامتثال من الألف إلى الياء
             </p>
             <p className="font-english text-sm text-gray-500">
-              4 Major Steps Representing the Complete Compliance Cycle from Creation to Reporting
+              8 Major Pages Representing the Complete GRC System from Start to Finish
             </p>
           </div>
         </div>

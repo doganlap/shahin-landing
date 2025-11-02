@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Zap, Brain, Sparkles } from 'lucide-react'
 
 const ParallaxSection = () => {
   return (
@@ -43,22 +44,28 @@ const ParallaxSection = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="grid md:grid-cols-3 gap-8"
           >
-            <div className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all hover:border-brand-accent/50">
-              <div className="text-5xl mb-4">🚀</div>
+            <div className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all hover:border-brand-accent/50 group">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <Zap className="w-8 h-8 text-white" strokeWidth={2} />
+              </div>
               <h4 className="font-arabic font-bold text-xl text-gray-900 mb-2">سرعة فائقة</h4>
               <p className="font-english text-sm text-gray-600 mb-4">Lightning Fast</p>
               <p className="font-arabic text-sm text-gray-700">ابدأ في دقائق وسرع من عملياتك فوراً</p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all hover:border-brand-accent/50">
-              <div className="text-5xl mb-4">🧠</div>
+            <div className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all hover:border-brand-accent/50 group">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <Brain className="w-8 h-8 text-white" strokeWidth={2} />
+              </div>
               <h4 className="font-arabic font-bold text-xl text-gray-900 mb-2">ذكاء متقدم</h4>
               <p className="font-english text-sm text-gray-600 mb-4">Advanced Intelligence</p>
               <p className="font-arabic text-sm text-gray-700">ذكاء اصطناعي يوجهك في كل خطوة</p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all hover:border-brand-accent/50">
-              <div className="text-5xl mb-4">🌟</div>
+            <div className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-lg hover:shadow-xl transition-all hover:border-brand-accent/50 group">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <Sparkles className="w-8 h-8 text-white" strokeWidth={2} />
+              </div>
               <h4 className="font-arabic font-bold text-xl text-gray-900 mb-2">تميز مستمر</h4>
               <p className="font-english text-sm text-gray-600 mb-4">Continuous Excellence</p>
               <p className="font-arabic text-sm text-gray-700">تحديثات مستمرة لخدمتك بشكل أفضل</p>

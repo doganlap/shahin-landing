@@ -23,7 +23,7 @@ Write-Host ""
 
 # Step 1: Build Production Docker Image
 Write-Host "Step 1: Building Production Docker Image..." -ForegroundColor Yellow
-Set-Location "D:\Dogan-GRC-Ai\landing-page"
+Set-Location "D:\www.shahin.com\landing-page"
 
 docker build -t grc-landing-page:$ImageTag .
 

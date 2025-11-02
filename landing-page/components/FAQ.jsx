@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, HelpCircle } from 'lucide-react'
 
 const FAQ = () => {
+  const [isSectionOpen, setIsSectionOpen] = useState(false)
   const [openIndex, setOpenIndex] = useState(null)
 
   const faqs = [
@@ -96,60 +97,111 @@ const FAQ = () => {
           </p>
         </motion.div>
 
-        {/* FAQ Items */}
-        <div className="max-w-4xl mx-auto space-y-4">
-          {faqs.map((faq, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
-              className="bg-white rounded-xl border-2 border-gray-200 overflow-hidden"
+        {/* FAQ Items - Two Level Collapsible */}
+        <div className="max-w-4xl mx-auto">
+          {/* Level 1: Main Section Collapsible */}
+          <div className="bg-white rounded-xl border-2 border-gray-200 overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 group/main">
+            {/* Collapsible Toggle Button */}
+            <button
+              onClick={() => setIsSectionOpen(!isSectionOpen)}
+              className="w-full px-8 py-6 flex items-center justify-between bg-gradient-to-r from-gray-50 via-white to-gray-50 hover:from-brand-primary/5 hover:via-brand-accent/5 hover:to-brand-primary/5 transition-all duration-300 group relative overflow-hidden"
+              aria-label="Toggle FAQ section"
+              aria-expanded={isSectionOpen}
             >
-              <button
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full px-6 py-5 flex items-center justify-between text-right hover:bg-gray-50 transition-colors group"
-                aria-label={faq.question}
-                aria-expanded={openIndex === index}
-              >
-                <ChevronDown 
-                  className={`w-5 h-5 text-gray-500 transition-transform flex-shrink-0 ${openIndex === index ? 'rotate-180' : ''}`} 
-                  strokeWidth={2}
-                  aria-hidden="true"
-                />
-                <div className="flex-1 mr-4 text-right">
-                  <div className="font-arabic font-bold text-lg text-gray-900 mb-1 group-hover:text-brand-primary transition-colors">
-                    {faq.question}
+              {/* Glowing hover effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[shimmer_2s_infinite] -translate-x-full group-hover:translate-x-full transition-all duration-700"></div>
+              
+              <div className="flex items-center gap-4 text-right relative z-10">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
+                  <HelpCircle className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <div className="font-arabic font-bold text-xl text-gray-900 mb-1 group-hover:text-brand-primary transition-all duration-300">
+                    الأسئلة الشائعة (10)
                   </div>
-                  <div className="font-english text-sm text-gray-600">
-                    {faq.questionEn}
+                  <div className="font-english text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+                    Frequently Asked Questions (10)
                   </div>
                 </div>
-              </button>
-              
-              <AnimatePresence>
-                {openIndex === index && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="px-6 py-5 bg-gray-50 border-t border-gray-200">
-                      <p className="font-arabic text-gray-700 leading-relaxed mb-3">
-                        {faq.answer}
-                      </p>
-                      <p className="font-english text-sm text-gray-600 leading-relaxed">
-                        {faq.answerEn}
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
+              </div>
+              <ChevronDown 
+                className={`w-6 h-6 text-gray-500 group-hover:text-brand-primary transition-all duration-300 ${isSectionOpen ? 'rotate-180' : ''}`}
+                strokeWidth={2}
+              />
+            </button>
+
+            {/* Level 2: Each FAQ Item Collapsible */}
+            <AnimatePresence>
+              {isSectionOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                >
+                  <div className="p-6 space-y-4 border-t border-gray-200">
+                    {faqs.map((faq, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                        className="bg-gradient-to-br from-gray-50 to-white rounded-xl border-2 border-gray-200 overflow-hidden shadow-md hover:shadow-xl hover:border-brand-primary/30 transition-all duration-300 group/item"
+                      >
+                        {/* Level 2 Collapsible Button */}
+                        <button
+                          onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                          className="w-full px-5 py-4 flex items-center justify-between text-right hover:bg-gradient-to-r hover:from-brand-primary/5 hover:via-transparent hover:to-brand-accent/5 transition-all duration-300 group relative overflow-hidden"
+                          aria-label={faq.question}
+                          aria-expanded={openIndex === index}
+                        >
+                          {/* Subtle shine effect */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                          
+                          <ChevronDown 
+                            className={`w-5 h-5 text-gray-500 group-hover:text-brand-primary transition-all duration-300 flex-shrink-0 ${openIndex === index ? 'rotate-180' : ''}`} 
+                            strokeWidth={2}
+                            aria-hidden="true"
+                          />
+                          <div className="flex-1 mr-3 text-right relative z-10">
+                            <div className="font-arabic font-bold text-lg text-gray-900 mb-1 group-hover:text-brand-primary transition-all duration-300">
+                              {index + 1}. {faq.question}
+                            </div>
+                            <div className="font-english text-sm text-gray-600 group-hover:text-gray-800 transition-colors duration-300">
+                              {faq.questionEn}
+                            </div>
+                          </div>
+                        </button>
+                        
+                        {/* Level 2 Answer */}
+                        <AnimatePresence>
+                          {openIndex === index && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: 'auto', opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="px-5 py-4 bg-white border-t border-gray-300">
+                                <p className="font-arabic text-gray-700 leading-relaxed mb-2">
+                                  {faq.answer}
+                                </p>
+                                <p className="font-english text-sm text-gray-600 leading-relaxed">
+                                  {faq.answerEn}
+                                </p>
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
 
         {/* Additional Help CTA */}

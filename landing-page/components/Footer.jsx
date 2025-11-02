@@ -71,24 +71,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Contact Info */}
-        <div className="border-t border-gray-800/50 dark:border-gray-700/50 pt-8 mb-8">
-          <div className="grid md:grid-cols-3 gap-6 text-sm">
-            <div>
-              <div className="font-arabic font-semibold mb-1">📧 البريد الإلكتروني</div>
-              <a href="mailto:info@shahingrc.sa" className="font-english text-gray-600 dark:text-gray-400 hover:text-brand-accent dark:hover:text-brand-gold transition-colors">info@shahingrc.sa</a>
-            </div>
-            <div>
-              <div className="font-arabic font-semibold mb-1">📱 الهاتف</div>
-              <a href="tel:+96611XXXXXXXX" className="font-english text-gray-600 dark:text-gray-400 hover:text-brand-accent dark:hover:text-brand-gold transition-colors">+966 11 XXX XXXX</a>
-            </div>
-            <div>
-              <div className="font-arabic font-semibold mb-1">📍 العنوان</div>
-              <div className="font-english text-gray-600 dark:text-gray-400">Riyadh, Saudi Arabia</div>
-            </div>
-          </div>
-        </div>
-
         {/* Professional Social & Copyright */}
         <div className="border-t border-gray-800/50 dark:border-gray-700/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex gap-3">
