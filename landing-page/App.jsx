@@ -14,9 +14,9 @@ import UnifiedValueSection from './components/UnifiedValueSection'
 import SaudiFrameworks from './components/SaudiFrameworks'
 import CompetitiveAdvantage from './components/CompetitiveAdvantage'
 import TargetSectors from './components/TargetSectors'
-import PlatformDemo from './components/PlatformDemo'
 import DashboardPreview from './components/DashboardPreview'
 import TransformationStory from './components/TransformationStory'
+import PlatformDemo from './components/PlatformDemo'
 import Testimonials from './components/Testimonials'
 import ParallaxSection from './components/ParallaxSection'
 import Pricing from './components/Pricing'
@@ -27,7 +27,7 @@ import Footer from './components/Footer'
 
 function App() {
   return (
-    <div className="min-h-screen bg-white" dir="rtl">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300" dir="rtl">
       <Header />
       <FloatingNav />
       <QuickSectionNav />

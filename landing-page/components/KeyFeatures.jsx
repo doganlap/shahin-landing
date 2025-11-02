@@ -2,7 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { 
   Cpu, Shield, Zap, BarChart3, FileText, Users, Globe, Lock,
-  Smartphone, Clock, CheckCircle2, TrendingUp, Layers, Settings
+  Smartphone, Clock, Layers, Settings
 } from 'lucide-react'
 
 const KeyFeatures = () => {
@@ -117,13 +117,6 @@ const KeyFeatures = () => {
     }
   ]
 
-  const benefits = [
-    'توفير 70% من الوقت في التقييمات',
-    'تقليل التكاليف بنسبة 50%',
-    'زيادة دقة الامتثال بنسبة 95%',
-    'تحسين إنتاجية الفريق بنسبة 80%'
-  ]
-
   return (
     <section id="features" className="py-20 bg-gradient-to-b from-white via-gray-50 to-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -160,10 +153,23 @@ const KeyFeatures = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
-              className="bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-brand-accent/50 transition-all shadow-lg hover:shadow-2xl group"
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-8 border-2 border-white/30 dark:border-gray-700/50 hover:border-brand-accent/50 transition-all shadow-xl hover:shadow-2xl group relative overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2))',
+                backdropFilter: 'blur(20px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2)',
+              }}
             >
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
-                <feature.icon className="w-8 h-8 text-white" strokeWidth={2} />
+              <div 
+                className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform`}
+                style={{
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.3), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2)',
+                }}
+              >
+                <feature.icon className="w-8 h-8 text-white" strokeWidth={2.5} />
               </div>
               <div className="inline-block px-3 py-1 bg-gray-100 rounded-lg text-xs font-bold text-gray-700 mb-4">
                 {feature.stats}
@@ -183,40 +189,6 @@ const KeyFeatures = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* Key Benefits */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-br from-brand-primary to-brand-secondary rounded-3xl p-12 text-white"
-        >
-          <h3 className="font-arabic font-bold text-3xl text-center mb-4">
-            الفوائد الرئيسية
-          </h3>
-          <h4 className="font-english font-semibold text-xl text-center mb-12 opacity-90">
-            Key Benefits
-          </h4>
-          
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="flex items-center gap-4 p-4 bg-white/10 backdrop-blur-sm rounded-xl">
-                <CheckCircle2 className="w-6 h-6 text-brand-accent flex-shrink-0" strokeWidth={2} />
-                <span className="font-arabic font-semibold">{benefit}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white text-brand-primary px-12 py-4 rounded-xl font-arabic font-bold text-lg shadow-xl hover:shadow-2xl transition-all"
-            >
-              ابدأ الآن
-            </motion.button>
-          </div>
-        </motion.div>
       </div>
     </section>
   )

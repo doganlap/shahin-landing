@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Shield, Building, Users, TrendingUp, CheckCircle, Globe, Award, FileText } from 'lucide-react'
+import { Shield, Building, Users, TrendingUp, CheckCircle, FileText } from 'lucide-react'
 
 const SaudiFrameworks = () => {
   const frameworkCategories = [
@@ -54,20 +54,10 @@ const SaudiFrameworks = () => {
     }
   ]
 
-  const internationalFrameworks = [
-    { name: 'ISO 27001', area: 'Information Security', controls: 114, certified: true },
-    { name: 'ISO 27002', area: 'Controls', controls: 93, certified: true },
-    { name: 'NIST CSF', area: 'Cybersecurity', controls: 108, certified: true },
-    { name: 'PCI DSS', area: 'Payment Security', controls: 331, certified: true },
-    { name: 'COBIT 2019', area: 'IT Governance', controls: 40, certified: true },
-    { name: 'SOC 2 Type II', area: 'Security Auditing', controls: 67, certified: true }
-  ]
-
   const stats = [
     { number: '117', label: 'إطار تنظيمي', labelEn: 'Total Frameworks', icon: FileText },
     { number: '3,200+', label: 'ضابط جاهز', labelEn: 'Pre-loaded Controls', icon: CheckCircle },
-    { number: '40+', label: 'جهة سعودية', labelEn: 'Saudi Regulators', icon: Building },
-    { number: '15', label: 'معيار دولي', labelEn: 'International Standards', icon: Globe }
+    { number: '40+', label: 'جهة سعودية', labelEn: 'Saudi Regulators', icon: Building }
   ]
 
   return (
@@ -174,46 +164,6 @@ const SaudiFrameworks = () => {
             ))}
           </div>
         </div>
-
-        {/* International Frameworks */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-3xl p-12 border-2 border-brand-accent/20 shadow-xl"
-        >
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <Globe className="w-8 h-8 text-brand-primary" strokeWidth={2} />
-            <h3 className="font-arabic font-bold text-3xl text-gray-900">
-              المعايير الدولية المعترف بها
-            </h3>
-          </div>
-          <h4 className="font-english font-semibold text-xl text-center text-gray-700 mb-12">
-            Internationally Recognized Standards
-          </h4>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {internationalFrameworks.map((framework, index) => (
-              <div key={index} className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 border-2 border-gray-200">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="font-english font-bold text-lg text-gray-900">{framework.name}</span>
-                  {framework.certified && (
-                    <Award className="w-5 h-5 text-brand-accent" strokeWidth={2} />
-                  )}
-                </div>
-                <p className="font-english text-sm text-gray-600 mb-3">{framework.area}</p>
-                <div className="flex items-center justify-between">
-                  <span className="font-arabic text-xs text-gray-700">{framework.controls} ضابط</span>
-                  {framework.certified && (
-                    <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-bold">
-                      Certified
-                    </span>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
 
         {/* CTA */}
         <motion.div

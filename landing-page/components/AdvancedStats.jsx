@@ -97,13 +97,26 @@ const AdvancedStats = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-brand-accent/50 transition-all shadow-lg hover:shadow-2xl group relative overflow-hidden"
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-8 border-2 border-white/30 dark:border-gray-700/50 hover:border-brand-accent/50 transition-all shadow-xl hover:shadow-2xl group relative overflow-hidden"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2))',
+                backdropFilter: 'blur(20px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2)',
+              }}
             >
               {/* Animated background gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}></div>
+              <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 dark:opacity-10 group-hover:opacity-10 dark:group-hover:opacity-20 transition-opacity duration-300`}></div>
               
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform relative z-10`}>
-                <stat.icon className="w-8 h-8 text-white" strokeWidth={2} />
+              <div 
+                className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform relative z-10`}
+                style={{
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.3), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2)',
+                }}
+              >
+                <stat.icon className="w-8 h-8 text-white" strokeWidth={2.5} />
               </div>
               
               <div className="relative z-10">

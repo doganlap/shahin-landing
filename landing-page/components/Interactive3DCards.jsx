@@ -118,15 +118,25 @@ const Interactive3DCards = () => {
               transition={{ delay: index * 0.1 }}
               onMouseEnter={() => setHoveredCard(index)}
               onMouseLeave={() => setHoveredCard(null)}
-              className="relative bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-brand-accent/50 transition-all cursor-pointer h-full"
+              className="relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-8 border-2 border-white/30 dark:border-gray-700/50 hover:border-brand-accent/50 transition-all cursor-pointer h-full"
               style={{
                 transform: hoveredCard === index ? 'perspective(1000px) rotateY(-5deg) rotateX(5deg) translateZ(20px)' : 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateZ(0px)',
-                boxShadow: hoveredCard === index ? '0 20px 40px rgba(0,0,0,0.15)' : '0 10px 20px rgba(0,0,0,0.05)',
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2))',
+                backdropFilter: 'blur(20px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                boxShadow: hoveredCard === index ? '0 20px 40px rgba(31, 38, 135, 0.3)' : '0 8px 32px rgba(31, 38, 135, 0.2)',
                 transition: 'all 0.3s ease'
               }}
             >
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${card.gradient} flex items-center justify-center mb-6 shadow-lg`}>
-                <card.icon className="w-8 h-8 text-white" strokeWidth={2} />
+              <div 
+                className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${card.gradient} flex items-center justify-center mb-6 shadow-lg`}
+                style={{
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  boxShadow: '0 4px 16px 0 rgba(31, 38, 135, 0.3), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2)',
+                }}
+              >
+                <card.icon className="w-8 h-8 text-white" strokeWidth={2.5} />
               </div>
               
               <h3 className="font-arabic font-bold text-xl text-gray-900 mb-2">
