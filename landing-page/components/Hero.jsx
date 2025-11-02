@@ -109,31 +109,6 @@ const Hero = () => {
           </span>
         </motion.div>
 
-        {/* Clean CTAs - More Space */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="flex flex-col sm:flex-row gap-5 justify-center items-center"
-        >
-          <button
-            onClick={() => setIsDemoOpen(true)}
-            aria-label="احجز عرض توضيحي"
-            className="group bg-gradient-to-r from-brand-accent to-brand-gold text-white px-12 py-5 rounded-xl font-arabic font-bold text-xl shadow-2xl hover:shadow-brand-accent/50 transition-all transform hover:scale-105 flex items-center gap-3"
-          >
-            <span>احجز عرض توضيحي</span>
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-          </button>
-
-          <button
-            onClick={() => setIsPOCOpen(true)}
-            aria-label="اطلب إثبات المفهوم"
-            className="group bg-white/10 backdrop-blur-sm border-2 border-white/30 hover:border-white/60 hover:bg-white/20 text-white px-12 py-5 rounded-xl font-arabic font-bold text-xl transition-all flex items-center gap-3"
-          >
-            <span>اطلب إثبات المفهوم</span>
-            <Play className="w-4 h-4 group-hover:scale-110 transition-transform" aria-hidden="true" />
-          </button>
-        </motion.div>
 
         {/* Ultra-Minimal Scroll Indicator */}
         <motion.div

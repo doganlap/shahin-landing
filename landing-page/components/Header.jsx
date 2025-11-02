@@ -341,17 +341,6 @@ const Header = () => {
                 <span className="font-arabic text-sm text-gray-700 dark:text-gray-300">المظهر:</span>
                 <ThemeToggle className="text-gray-700 dark:text-gray-300" />
               </div>
-              
-              <button 
-                onClick={() => {
-                  setBookingType('demo')
-                  setIsDemoOpen(true)
-                }}
-                className="bg-brand-primary text-white px-6 py-2.5 rounded-lg font-arabic font-semibold w-full hover:bg-brand-secondary transition-colors mt-4"
-                aria-label="احجز عرض توضيحي"
-              >
-                احجز عرض توضيحي
-              </button>
             </div>
           </div>
         )}

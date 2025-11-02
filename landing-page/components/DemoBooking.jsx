@@ -2,6 +2,35 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Calendar, Clock, User, Mail, Phone, Building2, MessageSquare, CheckCircle, X, AlertCircle, Loader2 } from 'lucide-react'
 
+// Modern advanced combined calendar-clock icon component
+const ScheduleIcon = ({ className = "w-5 h-5", strokeWidth = 2.5 }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={strokeWidth}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    {/* Calendar base with rounded corners */}
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+    {/* Calendar rings on top */}
+    <line x1="16" y1="2" x2="16" y2="6" />
+    <line x1="8" y1="2" x2="8" y2="6" />
+    {/* Calendar header separator */}
+    <line x1="3" y1="10" x2="21" y2="10" />
+    {/* Modern clock overlay integrated into calendar - bottom right */}
+    <circle cx="16.5" cy="16.5" r="3.5" fill="none" />
+    {/* Hour hand pointing to 3 */}
+    <line x1="16.5" y1="16.5" x2="19" y2="16.5" strokeWidth={strokeWidth * 1.3} />
+    {/* Minute hand pointing to 12 */}
+    <line x1="16.5" y1="16.5" x2="16.5" y2="14" strokeWidth={strokeWidth * 1.1} />
+    {/* Clock center dot */}
+    <circle cx="16.5" cy="16.5" r="0.8" fill="currentColor" />
+  </svg>
+)
+
 const DemoBooking = ({ isOpen, onClose, type = 'demo' }) => {
   const [step, setStep] = useState(1)
   const [formData, setFormData] = useState({
@@ -449,28 +478,27 @@ const DemoBooking = ({ isOpen, onClose, type = 'demo' }) => {
 
                       <div>
                         <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                          <Calendar className="w-4 h-4" />
-                          <span className="font-english">Preferred Date</span>
-                          <span className="font-arabic text-gray-500">التاريخ المفضل</span>
+                          <ScheduleIcon className="w-5 h-5 text-brand-primary" strokeWidth={2.5} />
+                          <span className="font-english">Schedule {type === 'demo' ? 'Demo' : 'POC'}</span>
+                          <span className="font-arabic text-gray-500">جدولة {type === 'demo' ? 'العرض التوضيحي' : 'إثبات المفهوم'}</span>
+                          {loadingAvailability && (
+                            <Loader2 className="w-4 h-4 animate-spin text-brand-primary" />
+                          )}
                         </label>
                         <input
                           type="date"
                           value={formData.preferredDate}
                           onChange={(e) => handleChange('preferredDate', e.target.value)}
                           min={new Date().toISOString().split('T')[0]}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-primary focus:border-transparent outline-none mb-4"
                           required
                         />
                       </div>
 
                       <div>
                         <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                          <Clock className="w-4 h-4" />
-                          <span className="font-english">Preferred Time</span>
-                          <span className="font-arabic text-gray-500">الوقت المفضل</span>
-                          {loadingAvailability && (
-                            <Loader2 className="w-4 h-4 animate-spin text-brand-primary" />
-                          )}
+                          <span className="font-english">Available Time Slots</span>
+                          <span className="font-arabic text-gray-500">المواعيد المتاحة</span>
                         </label>
                         
                         {availabilityInfo && (

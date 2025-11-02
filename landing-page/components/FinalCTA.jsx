@@ -90,33 +90,6 @@ const FinalCTA = () => {
             </div>
           </motion.div>
 
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-5 justify-center items-center"
-          >
-            <button
-              onClick={() => setIsDemoOpen(true)}
-              className="group bg-gradient-to-r from-brand-accent to-brand-gold text-white px-12 py-5 rounded-xl font-arabic font-bold text-xl shadow-2xl hover:shadow-brand-accent/50 transition-all transform hover:scale-105 flex items-center gap-3 w-full sm:w-auto justify-center"
-              aria-label="احجز عرض توضيحي مجاني"
-            >
-              <span>احجز عرض توضيحي مجاني</span>
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-            </button>
-
-            <button
-              onClick={() => setIsPOCOpen(true)}
-              className="group bg-white/10 backdrop-blur-sm border-2 border-white/30 hover:border-white/60 hover:bg-white/20 text-white px-12 py-5 rounded-xl font-arabic font-bold text-xl transition-all flex items-center gap-3 w-full sm:w-auto justify-center"
-              aria-label="اطلب إثبات المفهوم"
-            >
-              <span>اطلب إثبات المفهوم</span>
-              <Sparkles className="w-4 h-4 group-hover:scale-110 transition-transform" aria-hidden="true" />
-            </button>
-          </motion.div>
-
           {/* Trust Indicators */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
