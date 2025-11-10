@@ -44,16 +44,16 @@ const TrustBar = () => {
           {/* Customer Logos Placeholder */}
           <div className="flex flex-wrap justify-center items-center gap-8 opacity-40">
             <div className="h-16 w-32 bg-gray-200 rounded-lg flex items-center justify-center">
-              <span className="text-gray-400 text-xs">Logo 1</span>
+              <span className="text-gray-400 text-xs font-arabic">شعار 1</span>
             </div>
             <div className="h-16 w-32 bg-gray-200 rounded-lg flex items-center justify-center">
-              <span className="text-gray-400 text-xs">Logo 2</span>
+              <span className="text-gray-400 text-xs font-arabic">شعار 2</span>
             </div>
             <div className="h-16 w-32 bg-gray-200 rounded-lg flex items-center justify-center">
-              <span className="text-gray-400 text-xs">Logo 3</span>
+              <span className="text-gray-400 text-xs font-arabic">شعار 3</span>
             </div>
             <div className="h-16 w-32 bg-gray-200 rounded-lg flex items-center justify-center">
-              <span className="text-gray-400 text-xs">Logo 4</span>
+              <span className="text-gray-400 text-xs font-arabic">شعار 4</span>
             </div>
           </div>
         </div>

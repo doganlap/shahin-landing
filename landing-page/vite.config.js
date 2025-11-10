@@ -8,6 +8,9 @@ export default defineConfig({
     port: 4000,
     open: true
   },
+  define: {
+    'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'http://localhost:3001')
+  },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

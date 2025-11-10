@@ -2,13 +2,15 @@ import React, { useState, useRef, useEffect } from 'react'
 import { Shield, Sparkles, LogIn, Bot, Menu, ChevronDown } from 'lucide-react'
 import { motion } from 'framer-motion'
 import DemoBooking from './DemoBooking'
+import LoginModal from './LoginModal'
 import UnifiedLogo from './UnifiedLogo'
 import ThemeToggle from './ThemeToggle'
 import { useScrollSpy, useScrollProgress, useHeaderVisibility } from '../hooks/useScrollSpy'
 
-const Header = () => {
+const Header = ({ onLoginClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isDemoOpen, setIsDemoOpen] = useState(false)
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [bookingType, setBookingType] = useState('demo')
   const dropdownRef = useRef(null)
@@ -229,6 +231,25 @@ const Header = () => {
               )}
             </div>
             
+            {/* Login Button */}
+            <div className="relative group">
+              <motion.button 
+                onClick={onLoginClick}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="relative flex items-center gap-2 font-arabic font-bold px-4 py-2 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg hover:shadow-xl transition-all"
+                aria-label="دخول المنصة"
+              >
+                <LogIn className="w-5 h-5" strokeWidth={2.5} aria-hidden="true" />
+                <span>دخول</span>
+              </motion.button>
+              <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                <div className="bg-gray-900 text-white text-xs font-arabic px-3 py-1.5 rounded-lg whitespace-nowrap shadow-lg">
+                  دخول منصة شاهين
+                </div>
+              </div>
+            </div>
+
             {/* Theme Toggle */}
             <div className="relative group">
               <ThemeToggle className="text-white/90 hover:text-yellow-300 hover:bg-white/10 rounded-full p-2" />
@@ -306,6 +327,16 @@ const Header = () => {
               >
                 اتصل بنا {activeSection === 'contact' && <span className="mr-2 text-xs">●</span>}
               </button>
+
+              {/* Mobile Login Button */}
+              <button 
+                onClick={onLoginClick}
+                className="flex items-center gap-2 font-arabic font-bold text-right bg-gradient-to-br from-emerald-500 to-emerald-600 text-white px-4 py-2 rounded-full shadow-lg"
+                aria-label="دخول المنصة"
+              >
+                <LogIn className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
+                <span>دخول المنصة</span>
+              </button>
               
               {/* Mobile: All Sections */}
               <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
@@ -343,7 +374,13 @@ const Header = () => {
       <DemoBooking 
         isOpen={isDemoOpen} 
         onClose={() => setIsDemoOpen(false)}
-        type={bookingType}
+        bookingType={bookingType}
+      />
+
+      {/* Login Modal */}
+      <LoginModal 
+        isOpen={isLoginOpen} 
+        onClose={() => setIsLoginOpen(false)}
       />
     </header>
   )

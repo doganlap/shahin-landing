@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background Circle -->
+  <circle cx="50" cy="50" r="45" fill="url(#logoGradient)" stroke="#ffffff" stroke-width="2"/>
+  
+  <!-- Shield Shape for GRC -->
+  <path d="M30 25 L50 20 L70 25 L70 45 Q70 65 50 75 Q30 65 30 45 Z" fill="#ffffff" opacity="0.9"/>
+  
+  <!-- Arabic-style geometric pattern -->
+  <g fill="#1e40af" opacity="0.8">
+    <circle cx="50" cy="35" r="3"/>
+    <circle cx="42" cy="45" r="2"/>
+    <circle cx="58" cy="45" r="2"/>
+    <circle cx="50" cy="55" r="2"/>
+    <polygon points="50,40 45,48 55,48" fill="#3b82f6"/>
+  </g>
+  
+  <!-- Text hint -->
+  <text x="50" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#ffffff" font-weight="bold">شاهين</text>
+</svg>

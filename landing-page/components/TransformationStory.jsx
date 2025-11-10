@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import UnifiedLogo from './UnifiedLogo'
 import { 
   CloudOff, FileText, Users, AlertTriangle, Clock, DollarSign,
   Zap, Cpu, Shield, CheckCircle, Sparkles, TrendingUp,
@@ -542,14 +543,8 @@ const TransformationStory = () => {
                         animate={{ scale: 1, opacity: 1 }}
                         className="w-80 bg-white rounded-2xl shadow-2xl p-6 border-4 border-blue-500"
                       >
-                        <div className="flex items-center gap-3 mb-6">
-                          <div className="w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-secondary rounded-lg flex items-center justify-center">
-                            <Shield className="w-6 h-6 text-white" />
-                          </div>
-                          <div>
-                            <div className="font-arabic font-bold text-xl">شاهين للحوكمة</div>
-                            <div className="text-xs text-gray-500">Shahin GRC</div>
-                          </div>
+                        <div className="mb-6">
+                          <UnifiedLogo size="small" variant="horizontal" />
                         </div>
                         
                         {/* Welcome Message */}

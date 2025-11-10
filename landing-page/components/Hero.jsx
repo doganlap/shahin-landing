@@ -125,7 +125,7 @@ const Hero = () => {
             <div className="w-5 h-8 border border-white/30 rounded-full flex items-start justify-center p-1.5">
               <div className="w-0.5 h-1.5 bg-white/40 rounded-full"></div>
             </div>
-            <span className="text-[10px] font-light tracking-[0.2em] uppercase">Scroll</span>
+            <span className="text-[10px] font-arabic tracking-[0.2em] uppercase">اسحب</span>
           </motion.div>
         </motion.div>
       </div>

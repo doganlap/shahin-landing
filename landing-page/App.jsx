@@ -1,60 +1,63 @@
-import React from 'react'
-import Header from './components/Header'
-import FloatingNav from './components/FloatingNav'
-import QuickSectionNav from './components/QuickSectionNav'
-import Hero from './components/Hero'
-import TrustBar from './components/TrustBar'
-import Vision from './components/Vision'
-import Interactive3DCards from './components/Interactive3DCards'
-import AITeamShowcase from './components/AITeamShowcase'
-import CompetitiveAdvantage from './components/CompetitiveAdvantage'
-import TargetSectors from './components/TargetSectors'
-import DashboardPreview from './components/DashboardPreview'
-import TransformationStory from './components/TransformationStory'
-import ParallaxSection from './components/ParallaxSection'
-import Pricing from './components/Pricing'
-import FAQ from './components/FAQ'
+import React from 'react';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import ProblemSolution from './components/ProblemSolution';
+import KeyFeatures from './components/KeyFeatures';
+import AdvancedStats from './components/AdvancedStats';
+import CompetitiveAdvantage from './components/CompetitiveAdvantage';
+import TargetSectors from './components/TargetSectors';
+import SaudiFrameworks from './components/SaudiFrameworks';
+import PlatformDemo from './components/PlatformDemo';
+import DashboardPreview from './components/DashboardPreview';
+import DemoBooking from './components/DemoBooking';
+import Testimonials from './components/Testimonials';
+import FAQ from './components/FAQ';
+import FinalCTA from './components/FinalCTA';
+import Footer from './components/Footer';
+import FloatingNav from './components/FloatingNav';
+import FloatingAIAgent from './components/FloatingAIAgent';
+import QuickSectionNav from './components/QuickSectionNav';
+import LoginModal from './components/LoginModal';
+import { useTheme } from './contexts/ThemeContext';
 
-function App() {
+const App = () => {
+  const { theme } = useTheme();
+
+  // Function to redirect to the advanced Glassmorphism login page with Microsoft auth
+  const redirectToMainAppLogin = () => {
+    // Redirect to the glassmorphism login page with Microsoft authentication
+    window.location.href = 'http://localhost:2050/login-glass';
+  };
+
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300" dir="rtl">
-      <Header />
-      <FloatingNav />
+    <div className={`min-h-screen transition-colors duration-300 ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+      <FloatingNav onLoginClick={redirectToMainAppLogin} />
+      <FloatingAIAgent />
       <QuickSectionNav />
-      <main>
-        <Hero />
-        <TrustBar />
-        <Vision />
-        <Interactive3DCards />
-        <AITeamShowcase />
-        <CompetitiveAdvantage />
-        <TargetSectors />
-        <DashboardPreview />
-        <TransformationStory />
-        <ParallaxSection />
-        <Pricing />
-        <FAQ />
-      </main>
-      <footer className="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-6">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="font-english text-sm text-gray-600 dark:text-gray-400">
-              Powered by{' '}
-              <a
-                href="https://www.doganconsult.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-brand-primary hover:text-brand-accent transition-colors underline"
-              >
-                DoganConsult
-              </a>
-            </p>
-          </div>
-        </div>
-      </footer>
+      
+      <Header onLoginClick={redirectToMainAppLogin} />
+      <Hero onLoginClick={redirectToMainAppLogin} />
+      <ProblemSolution />
+      <KeyFeatures />
+      <AdvancedStats />
+      <CompetitiveAdvantage />
+      <TargetSectors />
+      <SaudiFrameworks />
+      <PlatformDemo />
+      <DashboardPreview />
+      <DemoBooking />
+      <Testimonials />
+      <FAQ />
+      <FinalCTA onLoginClick={redirectToMainAppLogin} />
+      <Footer />
+      
+      <LoginModal 
+        isOpen={false} 
+        onClose={() => {}} 
+        onLoginRedirect={redirectToMainAppLogin}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default App
-
+export default App;

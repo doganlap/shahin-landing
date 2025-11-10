@@ -13,7 +13,7 @@ const Interactive3DCards = () => {
       description: 'ضمان الامتثال الكامل مع الأمان الفائق',
       descriptionEn: 'Full compliance assurance with superior security',
       gradient: 'from-blue-500 to-blue-700',
-      features: ['ISO 27001 Certified', 'End-to-End Encryption', 'Regular Audits']
+      features: ['معتمد بشهادة ISO 27001', 'تشفير شامل', 'عمليات تدقيق منتظمة']
     },
     {
       icon: Cpu,
@@ -22,7 +22,7 @@ const Interactive3DCards = () => {
       description: 'ذكاء اصطناعي متقدم لتسريع القرارات',
       descriptionEn: 'Advanced AI to accelerate decisions',
       gradient: 'from-purple-500 to-purple-700',
-      features: ['Auto-Assessments', 'Smart Recommendations', 'Predictive Analytics']
+      features: ['تقييمات تلقائية', 'توصيات ذكية', 'تحليلات تنبؤية']
     },
     {
       icon: BarChart3,
@@ -31,7 +31,7 @@ const Interactive3DCards = () => {
       description: 'رؤى قابلة للتنفيذ من البيانات',
       descriptionEn: 'Actionable insights from data',
       gradient: 'from-amber-500 to-orange-700',
-      features: ['Real-Time Dashboards', 'Custom Reports', 'Data Visualization']
+      features: ['لوحات معلومات فورية', 'تقارير مخصصة', 'تصور البيانات']
     },
     {
       icon: Users,
@@ -40,7 +40,7 @@ const Interactive3DCards = () => {
       description: 'فرق تعمل معاً بكفاءة',
       descriptionEn: 'Teams working together efficiently',
       gradient: 'from-green-500 to-emerald-700',
-      features: ['Team Workspaces', 'Role Management', 'Notification System']
+      features: ['مساحات عمل للفريق', 'إدارة الأدوار', 'نظام الإشعارات']
     },
     {
       icon: FileCheck,
@@ -49,7 +49,7 @@ const Interactive3DCards = () => {
       description: 'جميع الأطر في مكان واحد',
       descriptionEn: 'All frameworks in one place',
       gradient: 'from-indigo-500 to-indigo-700',
-      features: ['117+ Frameworks', '3,200+ Controls', 'Centralized Dashboard']
+      features: ['+117 إطار عمل', '+3,200 ضابط تحكم', 'لوحة تحكم مركزية']
     },
     {
       icon: Zap,
@@ -58,7 +58,7 @@ const Interactive3DCards = () => {
       description: 'قل وداعاً للمهام اليدوية المتكررة',
       descriptionEn: 'Say goodbye to repetitive manual tasks',
       gradient: 'from-pink-500 to-rose-700',
-      features: ['Auto-Scheduling', 'Smart Workflows', 'One-Click Actions']
+      features: ['جدولة تلقائية', 'سير عمل ذكي', 'إجراءات بنقرة واحدة']
     },
     {
       icon: Globe,
@@ -67,7 +67,7 @@ const Interactive3DCards = () => {
       description: 'دعم كامل للعربية والإنجليزية',
       descriptionEn: 'Full Arabic & English support',
       gradient: 'from-teal-500 to-cyan-700',
-      features: ['100% Arabic UI', 'Bilingual Content', 'RTL Support']
+      features: ['واجهة عربية 100%', 'محتوى ثنائي اللغة', 'دعم RTL']
     },
     {
       icon: Lock,
@@ -76,7 +76,7 @@ const Interactive3DCards = () => {
       description: 'بياناتك محمية ومضمونة',
       descriptionEn: 'Your data protected and secure',
       gradient: 'from-red-500 to-red-700',
-      features: ['GDPR Compliant', 'Local Hosting', 'Data Sovereignty']
+      features: ['متوافق مع GDPR', 'استضافة محلية', 'سيادة البيانات']
     }
   ]
 
