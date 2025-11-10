@@ -7,11 +7,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:prod": "VITE_API_URL=https://shahin-ai.com vite build",
+    "build:prod": "vite build",
     "preview": "vite preview",
-    "preview:prod": "VITE_API_URL=https://shahin-ai.com vite preview",
-    "start": "vite",
-    "deploy": "npm run build:prod"
+    "preview:prod": "vite preview",
+    "start": "npm run preview",
+    "deploy": "npm run build"
   },
   "dependencies": {
     "react": "^18.2.0",

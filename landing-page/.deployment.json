@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "logging_properties": {
+    "level": "verbose"
+  },
+  "build": {
+    "env": {
+      "VITE_API_URL": "https://grc-backend-prod.delightfulwave-81a84bdf.eastus.azurecontainerapps.io/api",
+      "VITE_FRONTEND_URL": "https://grc-frontend-prod.delightfulwave-81a84bdf.eastus.azurecontainerapps.io"
+    }
+  }
+}

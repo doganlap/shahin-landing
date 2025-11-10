@@ -1,0 +1,15 @@
+{
+  "name": "shahin-grc-platform",
+  "version": "1.0.0",
+  "description": "Shahin GRC Platform - Landing Page",
+  "private": true,
+  "scripts": {
+    "build": "cd landing-page && npm install && npm run build",
+    "start": "cd landing-page && npm start",
+    "postinstall": "cd landing-page && npm install"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
