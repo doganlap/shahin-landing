@@ -48,7 +48,7 @@ if not exist "backend\.env" (
         echo PORT=3001
         echo FRONTEND_URL=http://localhost:3002
         echo NODE_ENV=development
-        echo OPENAI_API_KEY=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
+        echo OPENAI_API_KEY=sk-your-openai-api-key-here
         echo OPENAI_MODEL=gpt-4
     ) > backend\.env
     echo ✅ Created backend/.env

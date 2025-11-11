@@ -5,7 +5,7 @@
 ### ✅ 1. Top 5 Cloud AI Providers Configured
 
 1. **OpenAI (GPT-4)** ✅
-   - API key configured: `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`
+   - API key: Configure in backend/.env (OPENAI_API_KEY)
    - Model: GPT-4
    - Priority: 2
 

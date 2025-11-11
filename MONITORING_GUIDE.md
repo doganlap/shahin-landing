@@ -36,7 +36,7 @@ curl http://localhost:3001/api/monitoring/status
   "apiKeys": {
     "openai": {
       "configured": true,
-      "keyPreview": "sk-svcacct...",
+      "keyPreview": "sk-...",
       "valid": true,
       "lastChecked": "2025-01-XX..."
     },
