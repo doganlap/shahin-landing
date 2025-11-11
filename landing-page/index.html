@@ -21,6 +21,19 @@
 <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- AI Configuration Link (Hidden by default, accessible via /ai-config) -->
+    <script>
+        // Add config link in development mode
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            const configLink = document.createElement('a');
+            configLink.href = '/ai-config';
+            configLink.textContent = '⚙️ AI Config';
+            configLink.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#667eea;color:white;padding:10px 20px;border-radius:8px;text-decoration:none;z-index:9999;font-family:Arial;font-size:14px;';
+            configLink.target = '_blank';
+            document.body.appendChild(configLink);
+        }
+    </script>
 </body>
 </html>
 

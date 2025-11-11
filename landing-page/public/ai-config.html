@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Service Configuration - شاهين للحوكمة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #1a202c;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        .subtitle {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        .provider-section {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        .provider-section:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102,126,234,0.2);
+        }
+        .provider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .provider-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .provider-badge {
+            background: #48bb78;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .provider-badge.disabled {
+            background: #e53e3e;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 600;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        input[type="password"] {
+            font-family: monospace;
+        }
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-weight: 600;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+        .btn-secondary {
+            background: #718096;
+        }
+        .btn-danger {
+            background: #e53e3e;
+        }
+        .status-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .status-message.success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 2px solid #48bb78;
+            display: block;
+        }
+        .status-message.error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 2px solid #e53e3e;
+            display: block;
+        }
+        .help-text {
+            font-size: 0.9rem;
+            color: #718096;
+            margin-top: 5px;
+        }
+        .test-btn {
+            background: #ed8936;
+            margin-left: 10px;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .priority-badge {
+            background: #4299e1;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙️ إعدادات خدمات الذكاء الاصطناعي</h1>
+        <p class="subtitle">AI Service Configuration - Top 5 Cloud Providers + Local LLM</p>
+
+        <div id="statusMessage" class="status-message"></div>
+
+        <!-- Local LLM -->
+        <div class="provider-section">
+            <div class="provider-header">
+                <div>
+                    <span class="provider-title">🖥️ Local LLM (Ollama/LM Studio)</span>
+                    <span class="priority-badge">Priority 1</span>
+                </div>
+                <span class="provider-badge" id="localLLMStatus">Disabled</span>
+            </div>
+            <div class="form-group">
+                <label>Endpoint URL</label>
+                <input type="text" id="localLLMEndpoint" placeholder="http://localhost:1234/v1" value="http://localhost:1234/v1">
+                <div class="help-text">Ollama: http://localhost:11434/v1 | LM Studio: http://localhost:1234/v1</div>
+            </div>
+            <div class="form-group">
+                <label>Model Name</label>
+                <input type="text" id="localLLMModel" placeholder="llama-3.2-3b-instruct" value="llama-3.2-3b-instruct">
+            </div>
+            <div class="form-group">
+                <label>Type</label>
+                <select id="localLLMType">
+                    <option value="ollama">Ollama</option>
+                    <option value="lmstudio">LM Studio</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+            <div class="actions">
+                <button class="btn" onclick="saveLocalLLM()">💾 Save</button>
+                <button class="btn test-btn" onclick="testLocalLLM()">🧪 Test</button>
+            </div>
+        </div>
+
+        <!-- 1. OpenAI -->
+        <div class="provider-section">
+            <div class="provider-header">
+                <div>
+                    <span class="provider-title">🤖 OpenAI (GPT-4, GPT-3.5)</span>
+                    <span class="priority-badge">Priority 2</span>
+                </div>
+                <span class="provider-badge" id="openAIStatus">Disabled</span>
+            </div>
+            <div class="form-group">
+                <label>API Key</label>
+                <input type="password" id="openAIKey" placeholder="sk-...">
+                <div class="help-text">Get your API key from https://platform.openai.com/api-keys</div>
+            </div>
+            <div class="form-group">
+                <label>Model</label>
+                <select id="openAIModel">
+                    <option value="gpt-4">GPT-4</option>
+                    <option value="gpt-4-turbo">GPT-4 Turbo</option>
+                    <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                    <option value="gpt-4o">GPT-4o</option>
+                </select>
+            </div>
+            <div class="actions">
+                <button class="btn" onclick="saveOpenAI()">💾 Save</button>
+                <button class="btn test-btn" onclick="testOpenAI()">🧪 Test</button>
+            </div>
+        </div>
+
+        <!-- 2. Google Gemini -->
+        <div class="provider-section">
+            <div class="provider-header">
+                <div>
+                    <span class="provider-title">🔵 Google Gemini</span>
+                    <span class="priority-badge">Priority 3</span>
+                </div>
+                <span class="provider-badge" id="googleGeminiStatus">Disabled</span>
+            </div>
+            <div class="form-group">
+                <label>API Key</label>
+                <input type="password" id="googleGeminiKey" placeholder="AIza...">
+                <div class="help-text">Get your API key from https://makersuite.google.com/app/apikey</div>
+            </div>
+            <div class="form-group">
+                <label>Model</label>
+                <select id="googleGeminiModel">
+                    <option value="gemini-pro">Gemini Pro</option>
+                    <option value="gemini-pro-vision">Gemini Pro Vision</option>
+                    <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+                </select>
+            </div>
+            <div class="actions">
+                <button class="btn" onclick="saveGoogleGemini()">💾 Save</button>
+                <button class="btn test-btn" onclick="testGoogleGemini()">🧪 Test</button>
+            </div>
+        </div>
+
+        <!-- 3. Azure OpenAI -->
+        <div class="provider-section">
+            <div class="provider-header">
+                <div>
+                    <span class="provider-title">🔷 Azure OpenAI (Microsoft)</span>
+                    <span class="priority-badge">Priority 4</span>
+                </div>
+                <span class="provider-badge" id="azureOpenAIStatus">Disabled</span>
+            </div>
+            <div class="form-group">
+                <label>Endpoint URL</label>
+                <input type="text" id="azureOpenAIEndpoint" placeholder="https://your-resource.openai.azure.com">
+                <div class="help-text">Your Azure OpenAI resource endpoint</div>
+            </div>
+            <div class="form-group">
+                <label>API Key</label>
+                <input type="password" id="azureOpenAIKey" placeholder="your-api-key">
+            </div>
+            <div class="form-group">
+                <label>Deployment Name</label>
+                <input type="text" id="azureOpenAIDeployment" placeholder="gpt-4" value="gpt-4">
+            </div>
+            <div class="form-group">
+                <label>Model</label>
+                <input type="text" id="azureOpenAIModel" placeholder="gpt-4" value="gpt-4">
+            </div>
+            <div class="actions">
+                <button class="btn" onclick="saveAzureOpenAI()">💾 Save</button>
+                <button class="btn test-btn" onclick="testAzureOpenAI()">🧪 Test</button>
+            </div>
+        </div>
+
+        <!-- 4. AWS Bedrock -->
+        <div class="provider-section">
+            <div class="provider-header">
+                <div>
+                    <span class="provider-title">☁️ AWS Bedrock (Amazon)</span>
+                    <span class="priority-badge">Priority 5</span>
+                </div>
+                <span class="provider-badge" id="awsBedrockStatus">Disabled</span>
+            </div>
+            <div class="form-group">
+                <label>AWS Access Key ID</label>
+                <input type="password" id="awsAccessKeyId" placeholder="AKIA...">
+            </div>
+            <div class="form-group">
+                <label>AWS Secret Access Key</label>
+                <input type="password" id="awsSecretAccessKey" placeholder="your-secret-key">
+            </div>
+            <div class="form-group">
+                <label>Region</label>
+                <select id="awsBedrockRegion">
+                    <option value="us-east-1">US East (N. Virginia)</option>
+                    <option value="us-west-2">US West (Oregon)</option>
+                    <option value="eu-west-1">Europe (Ireland)</option>
+                    <option value="ap-southeast-1">Asia Pacific (Singapore)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Model</label>
+                <input type="text" id="awsBedrockModel" placeholder="anthropic.claude-3-sonnet-20240229-v1:0" value="anthropic.claude-3-sonnet-20240229-v1:0">
+            </div>
+            <div class="actions">
+                <button class="btn" onclick="saveAWSBedrock()">💾 Save</button>
+                <button class="btn test-btn" onclick="testAWSBedrock()">🧪 Test</button>
+            </div>
+        </div>
+
+        <!-- 5. Anthropic Claude -->
+        <div class="provider-section">
+            <div class="provider-header">
+                <div>
+                    <span class="provider-title">🧠 Anthropic Claude</span>
+                    <span class="priority-badge">Priority 6</span>
+                </div>
+                <span class="provider-badge" id="anthropicStatus">Disabled</span>
+            </div>
+            <div class="form-group">
+                <label>API Key</label>
+                <input type="password" id="anthropicKey" placeholder="sk-ant-...">
+                <div class="help-text">Get your API key from https://console.anthropic.com/</div>
+            </div>
+            <div class="form-group">
+                <label>Model</label>
+                <select id="anthropicModel">
+                    <option value="claude-3-sonnet-20240229">Claude 3 Sonnet</option>
+                    <option value="claude-3-opus-20240229">Claude 3 Opus</option>
+                    <option value="claude-3-haiku-20240307">Claude 3 Haiku</option>
+                </select>
+            </div>
+            <div class="actions">
+                <button class="btn" onclick="saveAnthropic()">💾 Save</button>
+                <button class="btn test-btn" onclick="testAnthropic()">🧪 Test</button>
+            </div>
+        </div>
+
+        <!-- Global Actions -->
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #e2e8f0;">
+            <h2>Global Actions</h2>
+            <div class="actions">
+                <button class="btn" onclick="saveAll()">💾 Save All Configurations</button>
+                <button class="btn btn-secondary" onclick="loadConfig()">📥 Load Current Config</button>
+                <button class="btn btn-secondary" onclick="testAll()">🧪 Test All Services</button>
+                <button class="btn btn-danger" onclick="resetConfig()">🔄 Reset All</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = window.location.origin.includes('localhost') 
+            ? 'http://localhost:3001/api' 
+            : 'https://api.shahin-ai.com/api';
+
+        function showMessage(message, type = 'success') {
+            const msgEl = document.getElementById('statusMessage');
+            msgEl.textContent = message;
+            msgEl.className = `status-message ${type}`;
+            setTimeout(() => {
+                msgEl.className = 'status-message';
+            }, 5000);
+        }
+
+        // Load configuration on page load
+        async function loadConfig() {
+            try {
+                const response = await fetch(`${API_URL}/admin/config`);
+                const config = await response.json();
+                
+                // Load Local LLM
+                if (config.localLLM) {
+                    document.getElementById('localLLMEndpoint').value = config.localLLM.endpoint || '';
+                    document.getElementById('localLLMModel').value = config.localLLM.model || '';
+                    document.getElementById('localLLMType').value = config.localLLM.type || 'ollama';
+                    updateStatus('localLLMStatus', config.localLLM.enabled);
+                }
+
+                // Load OpenAI
+                if (config.openai) {
+                    document.getElementById('openAIKey').value = config.openai.key || '';
+                    document.getElementById('openAIModel').value = config.openai.model || 'gpt-4';
+                    updateStatus('openAIStatus', config.openai.enabled);
+                }
+
+                // Load Google Gemini
+                if (config.googleGemini) {
+                    document.getElementById('googleGeminiKey').value = config.googleGemini.key || '';
+                    document.getElementById('googleGeminiModel').value = config.googleGemini.model || 'gemini-pro';
+                    updateStatus('googleGeminiStatus', config.googleGemini.enabled);
+                }
+
+                // Load Azure OpenAI
+                if (config.azureOpenAI) {
+                    document.getElementById('azureOpenAIEndpoint').value = config.azureOpenAI.endpoint || '';
+                    document.getElementById('azureOpenAIKey').value = config.azureOpenAI.key || '';
+                    document.getElementById('azureOpenAIDeployment').value = config.azureOpenAI.deployment || 'gpt-4';
+                    document.getElementById('azureOpenAIModel').value = config.azureOpenAI.model || 'gpt-4';
+                    updateStatus('azureOpenAIStatus', config.azureOpenAI.enabled);
+                }
+
+                // Load AWS Bedrock
+                if (config.awsBedrock) {
+                    document.getElementById('awsAccessKeyId').value = config.awsBedrock.accessKeyId || '';
+                    document.getElementById('awsSecretAccessKey').value = config.awsBedrock.secretAccessKey || '';
+                    document.getElementById('awsBedrockRegion').value = config.awsBedrock.region || 'us-east-1';
+                    document.getElementById('awsBedrockModel').value = config.awsBedrock.model || '';
+                    updateStatus('awsBedrockStatus', config.awsBedrock.enabled);
+                }
+
+                // Load Anthropic
+                if (config.anthropic) {
+                    document.getElementById('anthropicKey').value = config.anthropic.key || '';
+                    document.getElementById('anthropicModel').value = config.anthropic.model || 'claude-3-sonnet-20240229';
+                    updateStatus('anthropicStatus', config.anthropic.enabled);
+                }
+
+                showMessage('Configuration loaded successfully!', 'success');
+            } catch (error) {
+                showMessage('Error loading configuration: ' + error.message, 'error');
+            }
+        }
+
+        function updateStatus(elementId, enabled) {
+            const el = document.getElementById(elementId);
+            el.textContent = enabled ? 'Enabled' : 'Disabled';
+            el.className = `provider-badge ${enabled ? '' : 'disabled'}`;
+        }
+
+        // Save functions
+        async function saveLocalLLM() {
+            const config = {
+                endpoint: document.getElementById('localLLMEndpoint').value,
+                model: document.getElementById('localLLMModel').value,
+                type: document.getElementById('localLLMType').value
+            };
+            await saveConfig('localLLM', config);
+        }
+
+        async function saveOpenAI() {
+            const config = {
+                key: document.getElementById('openAIKey').value,
+                model: document.getElementById('openAIModel').value
+            };
+            await saveConfig('openai', config);
+        }
+
+        async function saveGoogleGemini() {
+            const config = {
+                key: document.getElementById('googleGeminiKey').value,
+                model: document.getElementById('googleGeminiModel').value
+            };
+            await saveConfig('googleGemini', config);
+        }
+
+        async function saveAzureOpenAI() {
+            const config = {
+                endpoint: document.getElementById('azureOpenAIEndpoint').value,
+                key: document.getElementById('azureOpenAIKey').value,
+                deployment: document.getElementById('azureOpenAIDeployment').value,
+                model: document.getElementById('azureOpenAIModel').value
+            };
+            await saveConfig('azureOpenAI', config);
+        }
+
+        async function saveAWSBedrock() {
+            const config = {
+                accessKeyId: document.getElementById('awsAccessKeyId').value,
+                secretAccessKey: document.getElementById('awsSecretAccessKey').value,
+                region: document.getElementById('awsBedrockRegion').value,
+                model: document.getElementById('awsBedrockModel').value
+            };
+            await saveConfig('awsBedrock', config);
+        }
+
+        async function saveAnthropic() {
+            const config = {
+                key: document.getElementById('anthropicKey').value,
+                model: document.getElementById('anthropicModel').value
+            };
+            await saveConfig('anthropic', config);
+        }
+
+        async function saveConfig(service, config) {
+            try {
+                const response = await fetch(`${API_URL}/admin/config`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ service, config })
+                });
+                
+                if (response.ok) {
+                    showMessage(`${service} configuration saved successfully!`, 'success');
+                    await loadConfig(); // Reload to update status
+                } else {
+                    throw new Error('Failed to save configuration');
+                }
+            } catch (error) {
+                showMessage('Error saving configuration: ' + error.message, 'error');
+            }
+        }
+
+        async function saveAll() {
+            await saveLocalLLM();
+            await saveOpenAI();
+            await saveGoogleGemini();
+            await saveAzureOpenAI();
+            await saveAWSBedrock();
+            await saveAnthropic();
+            showMessage('All configurations saved successfully!', 'success');
+        }
+
+        // Test functions
+        async function testLocalLLM() {
+            await testService('localLLM', 'Local LLM');
+        }
+
+        async function testOpenAI() {
+            await testService('openai', 'OpenAI');
+        }
+
+        async function testGoogleGemini() {
+            await testService('googleGemini', 'Google Gemini');
+        }
+
+        async function testAzureOpenAI() {
+            await testService('azureOpenAI', 'Azure OpenAI');
+        }
+
+        async function testAWSBedrock() {
+            await testService('awsBedrock', 'AWS Bedrock');
+        }
+
+        async function testAnthropic() {
+            await testService('anthropic', 'Anthropic Claude');
+        }
+
+        async function testService(service, serviceName) {
+            try {
+                showMessage(`Testing ${serviceName}...`, 'success');
+                const response = await fetch(`${API_URL}/admin/test-service`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ service })
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    showMessage(`${serviceName} test passed!`, 'success');
+                } else {
+                    showMessage(`${serviceName} test failed: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showMessage(`Error testing ${serviceName}: ${error.message}`, 'error');
+            }
+        }
+
+        async function testAll() {
+            const services = ['localLLM', 'openai', 'googleGemini', 'azureOpenAI', 'awsBedrock', 'anthropic'];
+            for (const service of services) {
+                await testService(service, service);
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+        }
+
+        async function resetConfig() {
+            if (!confirm('Are you sure you want to reset all configurations?')) {
+                return;
+            }
+            try {
+                const response = await fetch(`${API_URL}/admin/reset-config`, {
+                    method: 'POST'
+                });
+                if (response.ok) {
+                    showMessage('All configurations reset!', 'success');
+                    await loadConfig();
+                }
+            } catch (error) {
+                showMessage('Error resetting configuration: ' + error.message, 'error');
+            }
+        }
+
+        // Load config on page load
+        window.addEventListener('DOMContentLoaded', loadConfig);
+    </script>
+</body>
+</html>
+

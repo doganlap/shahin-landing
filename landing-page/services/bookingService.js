@@ -1,7 +1,7 @@
 // Backend Integration Service for Demo/POC Bookings and Sandbox Access
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://grc-backend-prod.delightfulwave-81a84bdf.eastus.azurecontainerapps.io/api'
-const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL || 'https://grc-frontend-prod.delightfulwave-81a84bdf.eastus.azurecontainerapps.io'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.shahin-ai.com/api'
+const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL || 'https://www.shahin-ai.com'
 
 /**
  * Submit booking request to Azure Functions

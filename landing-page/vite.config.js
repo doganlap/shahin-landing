@@ -9,7 +9,7 @@ export default defineConfig({
     open: true
   },
   define: {
-    'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'http://localhost:3001')
+    'process.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'https://api.shahin-ai.com/api')
   },
   build: {
     outDir: 'dist',
@@ -31,8 +31,12 @@ export default defineConfig({
       }
     },
     // Increase chunk size warning limit
-    chunkSizeWarningLimit: 1000
+    chunkSizeWarningLimit: 1000,
+    // Copy public files (including _redirects) to dist
+    copyPublicDir: true
   },
+  // Public directory files will be copied to dist root
+  publicDir: 'public',
   // Optimize dependencies
   optimizeDeps: {
     include: ['react', 'react-dom', 'framer-motion', 'lucide-react']
