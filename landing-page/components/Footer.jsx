@@ -21,13 +21,13 @@ const Footer = () => {
             <p className="font-english text-xs text-gray-500 dark:text-gray-500 mb-4">
               Exceptional Governance, From the Kingdom to the World
             </p>
-            
+
             {/* Developed By */}
             <div className="border-t border-gray-700 pt-4 mt-4">
               <p className="font-arabic text-xs text-gray-500 mb-2">طُوّر بواسطة</p>
-              <a 
-                href="https://doganconsult.com" 
-                target="_blank" 
+              <a
+                href="https://doganconsult.com"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 font-english font-bold text-brand-accent hover:text-brand-gold transition-colors group"
               >
@@ -71,14 +71,56 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Partner Links Section */}
+        <div className="border-t border-gray-200 dark:border-gray-700 pt-8 mb-8">
+          <h4 className="font-arabic font-bold text-center mb-6">شركاؤنا</h4>
+          <div className="flex flex-wrap justify-center items-center gap-6">
+            <a
+              href="https://www.doganconsult.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-purple-500/20 border border-blue-500/20 hover:border-blue-500/40 transition-all"
+            >
+              <span className="font-english font-semibold text-gray-700 dark:text-gray-300 group-hover:text-brand-accent dark:group-hover:text-brand-gold transition-colors">
+                DoganConsult
+              </span>
+              <ExternalLink className="w-3 h-3 text-gray-500 group-hover:text-brand-accent group-hover:translate-x-1 transition-all" />
+            </a>
+
+            <a
+              href="https://doganlap.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-emerald-500/10 to-teal-500/10 hover:from-emerald-500/20 hover:to-teal-500/20 border border-emerald-500/20 hover:border-emerald-500/40 transition-all"
+            >
+              <span className="font-english font-semibold text-gray-700 dark:text-gray-300 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                DoganLap
+              </span>
+              <ExternalLink className="w-3 h-3 text-gray-500 group-hover:text-emerald-600 group-hover:translate-x-1 transition-all" />
+            </a>
+
+            <a
+              href="https://www.saudibusinessgate.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-amber-500/10 to-orange-500/10 hover:from-amber-500/20 hover:to-orange-500/20 border border-amber-500/20 hover:border-amber-500/40 transition-all"
+            >
+              <span className="font-english font-semibold text-gray-700 dark:text-gray-300 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+                Saudi Business Gate
+              </span>
+              <ExternalLink className="w-3 h-3 text-gray-500 group-hover:text-amber-600 group-hover:translate-x-1 transition-all" />
+            </a>
+          </div>
+        </div>
+
         {/* Professional Social & Copyright */}
         <div className="border-t border-gray-800/50 dark:border-gray-700/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex gap-3">
             <div className="relative group">
-              <motion.a 
-                href="https://twitter.com/shahingrc" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <motion.a
+                href="https://twitter.com/shahingrc"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
                 className="w-12 h-12 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 flex items-center justify-center hover:bg-gradient-to-br hover:from-brand-accent hover:to-brand-gold hover:text-white shadow-lg transition-all"
@@ -92,10 +134,10 @@ const Footer = () => {
               </div>
             </div>
             <div className="relative group">
-              <motion.a 
-                href="https://linkedin.com/company/shahingrc" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <motion.a
+                href="https://linkedin.com/company/shahingrc"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
                 className="w-12 h-12 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 flex items-center justify-center hover:bg-gradient-to-br hover:from-brand-accent hover:to-brand-gold hover:text-white shadow-lg transition-all"
@@ -109,10 +151,10 @@ const Footer = () => {
               </div>
             </div>
             <div className="relative group">
-              <motion.a 
-                href="https://youtube.com/@shahingrc" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <motion.a
+                href="https://youtube.com/@shahingrc"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
                 className="w-12 h-12 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 flex items-center justify-center hover:bg-gradient-to-br hover:from-brand-accent hover:to-brand-gold hover:text-white shadow-lg transition-all"
@@ -126,10 +168,10 @@ const Footer = () => {
               </div>
             </div>
             <div className="relative group">
-              <motion.a 
-                href="https://github.com/shahingrc" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <motion.a
+                href="https://github.com/shahingrc"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
                 className="w-12 h-12 rounded-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 flex items-center justify-center hover:bg-gradient-to-br hover:from-brand-accent hover:to-brand-gold hover:text-white shadow-lg transition-all"
@@ -143,7 +185,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-right">
             <div>
               <p className="font-arabic text-sm text-gray-600 dark:text-gray-400 mb-1">
@@ -157,9 +199,9 @@ const Footer = () => {
             <div className="relative group">
               <div>
                 <p className="font-arabic text-xs text-gray-500 dark:text-gray-500 mb-1">تطوير وتصميم:</p>
-                <a 
-                  href="https://doganconsult.com" 
-                  target="_blank" 
+                <a
+                  href="https://doganconsult.com"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 font-english font-semibold text-gray-700 dark:text-gray-300 hover:text-brand-accent dark:hover:text-brand-gold transition-colors text-sm"
                 >
